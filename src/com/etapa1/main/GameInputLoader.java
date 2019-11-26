@@ -66,7 +66,7 @@ public final class GameInputLoader {
             e.printStackTrace();
         }
 
-        return new GameInput(gameMap, playersType, playersPosition, playersMoves, noRounds);
+        return new GameInput(gameMap, playersType, playersPosition, playersMoves, noRounds, noColumns);
     }
 
 }

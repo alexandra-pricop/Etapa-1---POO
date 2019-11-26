@@ -1,11 +1,10 @@
 package com.etapa1.main;
 
-import com.etapa1.heros.Hero;
-import com.etapa1.heros.HeroFactory;
-import com.etapa1.heros.HeroTypes;
+import com.etapa1.heroes.Hero;
+import com.etapa1.heroes.HeroFactory;
+import com.etapa1.heroes.HeroTypes;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Main {
     private Main() {
@@ -30,11 +29,27 @@ public class Main {
                 heroes.add(HeroFactory.createHero(HeroTypes.K, gameInput.getPlayersPosition().get(i)));
             }
         }
-        System.out.println("NUMAR RUNDE " + gameInput.getRounds());
-        System.out.println("HARTA " + gameInput.getGameMap());
-        System.out.println("TIPURI DE PLAYERS " + gameInput.getPlayersType());
-        System.out.println("POZITII PLAYERS " + gameInput.getPlayersPosition());
-        System.out.println("MISCARI " + gameInput.getPlayersMoves());
-        System.out.println("NUMAR DE JUCATORI " + gameInput.getPlayersType().size());
+        for (int i = 0 ; i < gameInput.getRounds(); i++) {
+            heroes.get(0).attack(heroes.get(1));
+            heroes.get(1).attack(heroes.get(0));
+            System.out.println(heroes);
+
+        }
+//        System.out.println(heroes.get(0).equals(heroes.get(1)));
+//        System.out.println("HEROES " + heroes);
+//        System.out.println("NUMAR RUNDE " + gameInput.getRounds());
+//        System.out.println("HARTA " + gameInput.getGameMap());
+//        System.out.println("TIPURI DE PLAYERS " + gameInput.getPlayersType());
+//        System.out.println("POZITII PLAYERS " + gameInput.getPlayersPosition());
+//        System.out.println("MISCARI " + gameInput.getPlayersMoves());
+//        System.out.println("NUMAR DE JUCATORI " + gameInput.getPlayersType().size());
+          for(var hero : heroes) {
+              if(hero.heroHP <= 0) {
+                  System.out.println("DEAD");
+              }
+              else {
+                  System.out.println(hero);
+              }
+          }
     }
 }

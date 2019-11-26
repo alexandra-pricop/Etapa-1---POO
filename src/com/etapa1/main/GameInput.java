@@ -10,13 +10,15 @@ public class GameInput {
     private LinkedList<Integer> mPlayersPosition;
     private LinkedList<String> mPlayersMoves;
     private int mRounds;
+    private int mUnit;
 
-    public GameInput(Map<Integer, String> gameMap, LinkedList<String> playersType, LinkedList<Integer> playersPosition, LinkedList<String> playersMoves, int noRounds) {
+    public GameInput(Map<Integer, String> gameMap, LinkedList<String> playersType, LinkedList<Integer> playersPosition, LinkedList<String> playersMoves, int noRounds, int gameUnit) {
         mGameMap = gameMap;
         mPlayersType = playersType;
         mPlayersPosition = playersPosition;
         mPlayersMoves = playersMoves;
         mRounds = noRounds;
+        mUnit = gameUnit;
     }
 
     public Map<Integer, String> getGameMap() {
@@ -39,4 +41,5 @@ public class GameInput {
         return mRounds;
     }
 
+    public int getUnit() { return mUnit; }
 }
