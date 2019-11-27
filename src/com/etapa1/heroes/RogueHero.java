@@ -1,6 +1,7 @@
 package com.etapa1.heroes;
 
 import com.etapa1.common.Constants;
+import com.etapa1.main.GameInput;
 import com.etapa1.visitors.AbilityVisitor;
 import com.etapa1.visitors.BackStabVisitor;
 import com.etapa1.visitors.ParalysisVisitor;
@@ -9,6 +10,7 @@ public class RogueHero extends Hero {
 
     public int backStabDmg = 200;
     public int paralysisDmg = 40;
+    public int criticalHits = 0;
 
     public int getBackStabDmg() {
         return backStabDmg;
@@ -21,6 +23,7 @@ public class RogueHero extends Hero {
     public RogueHero(int heroPosition) {
         super(heroPosition);
         this.heroHP = Constants.R_HP;
+        this.maxLvlHp = heroHP;
         System.out.println("I'M A F***ING ROGUE");
     }
 
@@ -36,7 +39,15 @@ public class RogueHero extends Hero {
 
     @Override
     public void restoreHealth() {
-        this.heroHP = Constants.R_HP;
+        this.heroHP = maxLvlHp + 40;
+        maxLvlHp = heroHP;
+    }
+
+    public float landAmp() {
+        if(GameInput.getInstance().getGameMap().get(heroPosition).equals("W")) {
+            return Constants.R_AMP;
+        }
+        return Constants.BASE_AMP;
     }
 
     @Override
@@ -46,8 +57,17 @@ public class RogueHero extends Hero {
 
     @Override
     public void attack(Hero heroPlayer) {
+        //this.overtimeDmg(DoTRounds, DoTDmg);
+//        if (this.heroHP <= 0) {
+//            System.out.println("rogue mort in cada");
+//            return;
+//        }
         AbilityVisitor backStabVisitor = new BackStabVisitor(this);
         AbilityVisitor paralysisVisitor = new ParalysisVisitor(this);
+//        if (this.heroHP <= 0) {
+//            System.out.println("rogue mort in cada");
+//            return;
+//        }
         heroPlayer.accept(backStabVisitor);
         heroPlayer.accept(paralysisVisitor);
         if(heroPlayer.heroHP <= 0) {

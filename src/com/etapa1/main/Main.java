@@ -12,25 +12,35 @@ public class Main {
 
     public static void main(final String[] args) {
         GameInputLoader gameInputLoader = new GameInputLoader(args[0], args[1]);
-        GameInput gameInput = gameInputLoader.load();
+        gameInputLoader.load();
         //LinkedList<String> players = new LinkedList<String>(gameInput.getPlayersType());
         ArrayList<Hero> heroes = new ArrayList<Hero>();
-        for (int i = 0; i < gameInput.getPlayersType().size(); i++) {
-            if (gameInput.getPlayersType().get(i).equals("P")) {
-                heroes.add(HeroFactory.createHero(HeroTypes.P, gameInput.getPlayersPosition().get(i)));
+        for (int i = 0; i < GameInput.getInstance().getPlayersType().size(); i++) {
+            if (GameInput.getInstance().getPlayersType().get(i).equals("P")) {
+                heroes.add(HeroFactory.createHero(HeroTypes.P, GameInput.getInstance().getPlayersPosition().get(i)));
             }
-            if (gameInput.getPlayersType().get(i).equals("W")) {
-                heroes.add(HeroFactory.createHero(HeroTypes.W, gameInput.getPlayersPosition().get(i)));
+            if (GameInput.getInstance().getPlayersType().get(i).equals("W")) {
+                heroes.add(HeroFactory.createHero(HeroTypes.W, GameInput.getInstance().getPlayersPosition().get(i)));
             }
-            if (gameInput.getPlayersType().get(i).equals("R")) {
-                heroes.add(HeroFactory.createHero(HeroTypes.R, gameInput.getPlayersPosition().get(i)));
+            if (GameInput.getInstance().getPlayersType().get(i).equals("R")) {
+                heroes.add(HeroFactory.createHero(HeroTypes.R, GameInput.getInstance().getPlayersPosition().get(i)));
             }
-            if (gameInput.getPlayersType().get(i).equals("K")) {
-                heroes.add(HeroFactory.createHero(HeroTypes.K, gameInput.getPlayersPosition().get(i)));
+            if (GameInput.getInstance().getPlayersType().get(i).equals("K")) {
+                heroes.add(HeroFactory.createHero(HeroTypes.K, GameInput.getInstance().getPlayersPosition().get(i)));
             }
         }
-        for (int i = 0 ; i < gameInput.getRounds(); i++) {
+        for (int i = 0 ; i < GameInput.getInstance().getRounds(); i++) {
+            heroes.get(0).overtimeDmg(heroes.get(0).DoTRounds, heroes.get(0).DoTDmg);
+            heroes.get(1).overtimeDmg(heroes.get(1).DoTRounds, heroes.get(1).DoTDmg);
+            if(heroes.get(0).heroHP <= 0 || heroes.get(1).heroHP <= 0) {
+                System.out.println(heroes);
+                break;
+            }
             heroes.get(0).attack(heroes.get(1));
+//            if(heroes.get(1).heroHP <= 0) {
+//                System.out.println(heroes);
+//                break;
+//            }
             heroes.get(1).attack(heroes.get(0));
             System.out.println(heroes);
 

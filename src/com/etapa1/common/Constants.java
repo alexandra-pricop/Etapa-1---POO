@@ -11,4 +11,9 @@ public final class Constants {
     public static final int LEVEL_2_MIN = 300;
     public static final int LEVEL_3_MIN = 350;
     public static final int LEVEL_4_MIN = 400;
+    public static final float R_AMP = 1.15f;
+    public static final float BASE_AMP = 1.0f;
+    public static final float P_AMP = 1.25f;
+    public static final float K_AMP = 1.15f;
+    public static final float W_AMP = 1.10f;
 }

@@ -20,8 +20,8 @@ public class DeflectVisitor implements AbilityVisitor {
 
     @Override
     public void visit(RogueHero rogueHero) {
-        int bDmg = rogueHero.backStabDmg;
-        int pDmg = rogueHero.paralysisDmg;
+        int bDmg = Math.round(rogueHero.backStabDmg * rogueHero.landAmp());
+        int pDmg = Math.round(rogueHero.paralysisDmg * rogueHero.landAmp());
         float dmg = hero.deflectDmg + 0.2f * hero.deflectDmg;
         rogueHero.heroHP -= Math.round((bDmg + pDmg) * dmg);
     }

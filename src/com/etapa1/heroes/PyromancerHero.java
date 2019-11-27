@@ -1,15 +1,21 @@
 package com.etapa1.heroes;
 
 import com.etapa1.common.Constants;
+import com.etapa1.main.GameInput;
 import com.etapa1.visitors.AbilityVisitor;
 import com.etapa1.visitors.FireBlastVisitor;
 import com.etapa1.visitors.IgniteVisitor;
 
 public class PyromancerHero extends Hero {
 
+    public int fireBlastDmg = 350;
+    public int igniteBaseDmg = 150;
+    public int igniteDoT = 50;
+
     public PyromancerHero(int heroPosition) {
         super(heroPosition);
         this.heroHP = Constants.P_HP;
+        this.maxLvlHp = heroHP;
         System.out.println("I'M A F***ING PYROMANCER");
     }
 
@@ -25,7 +31,16 @@ public class PyromancerHero extends Hero {
 
     @Override
     protected void restoreHealth() {
-        this.heroHP = Constants.P_HP;
+        this.heroHP = maxLvlHp + 50;
+        maxLvlHp = heroHP;
+    }
+
+    @Override
+    public float landAmp() {
+        if(GameInput.getInstance().getGameMap().get(heroPosition).equals("V")) {
+            return Constants.P_AMP;
+        }
+        return Constants.BASE_AMP;
     }
 
     @Override
@@ -35,14 +50,30 @@ public class PyromancerHero extends Hero {
 
     @Override
     public void attack(Hero heroPlayer) {
+//        if (this.heroHP <= 0) {
+//            System.out.println("pyro mort in cada");
+//            return;
+//        }
         AbilityVisitor fireBlastVisitor = new FireBlastVisitor(this);
         AbilityVisitor igniteVisitor = new IgniteVisitor(this);
+//        this.overtimeDmg(DoTRounds, DoTDmg);
+//        if (this.heroHP <= 0) {
+//            System.out.println("pyro mort in cada");
+//            return;
+//        }
         heroPlayer.accept(fireBlastVisitor);
         heroPlayer.accept(igniteVisitor);
+        if(heroPlayer.heroHP <= 0) {
+            this.XPCalculator(this, heroPlayer);
+            this.levelUp();
+        }
     }
 
     @Override
     protected void powerUp() {
-
+        fireBlastDmg += 50;
+        igniteBaseDmg += 20;
+        igniteDoT += 30;
     }
+
 }

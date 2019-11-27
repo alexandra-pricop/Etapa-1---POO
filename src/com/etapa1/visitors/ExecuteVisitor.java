@@ -15,12 +15,22 @@ public class ExecuteVisitor implements AbilityVisitor {
 
     @Override
     public void visit(KnightHero knightHero) {
-
+        if(knightHero.heroHP < hero.enemyXPLimit * knightHero.maxLvlHp) {
+            knightHero.heroHP = 0;
+            return;
+        }
+        int dmg = Math.round(hero.executeDmg * hero.landAmp() * 1.0f);
+        knightHero.heroHP -= dmg;
     }
 
     @Override
     public void visit(RogueHero rogueHero) {
-
+        if(rogueHero.heroHP < hero.enemyXPLimit * rogueHero.maxLvlHp) {
+            rogueHero.heroHP = 0;
+            return;
+        }
+        int dmg = Math.round(hero.executeDmg * hero.landAmp() * 1.15f);
+        rogueHero.heroHP -= dmg;
     }
 
     @Override
@@ -30,6 +40,11 @@ public class ExecuteVisitor implements AbilityVisitor {
 
     @Override
     public void visit(PyromancerHero pyromancerHero) {
-
+        if(pyromancerHero.heroHP < hero.enemyXPLimit * pyromancerHero.maxLvlHp) {
+            pyromancerHero.heroHP = 0;
+            return;
+        }
+        int dmg = Math.round(hero.executeDmg * hero.landAmp() * 1.1f);
+        pyromancerHero.heroHP -= dmg;
     }
 }

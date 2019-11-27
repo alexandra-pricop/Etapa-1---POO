@@ -15,11 +15,14 @@ public class FireBlastVisitor implements AbilityVisitor {
 
     @Override
     public void visit(KnightHero knightHero) {
+        int amp = Math.round(hero.fireBlastDmg * hero.landAmp());
+        knightHero.heroHP -= Math.round(amp * 1.2f);
     }
 
     @Override
     public void visit(RogueHero rogueHero) {
-
+        int amp = Math.round(hero.fireBlastDmg * hero.landAmp());
+        rogueHero.heroHP -= Math.round(amp * 0.8f);
     }
 
     @Override
@@ -29,6 +32,7 @@ public class FireBlastVisitor implements AbilityVisitor {
 
     @Override
     public void visit(PyromancerHero pyromancerHero) {
-
+        int amp = Math.round(hero.fireBlastDmg * hero.landAmp());
+        pyromancerHero.heroHP -= Math.round(amp * 0.9f);
     }
 }

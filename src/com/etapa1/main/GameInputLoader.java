@@ -18,7 +18,7 @@ public final class GameInputLoader {
         mOutputPath = outputPath;
     }
 
-    public GameInput load() {
+    public void load() {
         LinkedList<Integer> playersPosition = new LinkedList<Integer>();
         LinkedList<String> playersType = new LinkedList<String>();
         Map<Integer, String> gameMap = new HashMap<Integer, String>();
@@ -66,7 +66,13 @@ public final class GameInputLoader {
             e.printStackTrace();
         }
 
-        return new GameInput(gameMap, playersType, playersPosition, playersMoves, noRounds, noColumns);
+        GameInput gameInput = GameInput.getInstance();
+        gameInput.setGameMap(gameMap);
+        gameInput.setRounds(noRounds);
+        gameInput.setPlayersMoves(playersMoves);
+        gameInput.setPlayersPosition(playersPosition);
+        gameInput.setUnit(noColumns);
+        gameInput.setPlayersType(playersType);
     }
 
 }

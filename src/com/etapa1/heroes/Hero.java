@@ -1,6 +1,7 @@
 package com.etapa1.heroes;
 
 import com.etapa1.common.Constants;
+import com.etapa1.main.GameInput;
 import com.etapa1.visitors.AbilityVisitor;
 
 import java.util.Objects;
@@ -11,26 +12,9 @@ public abstract class Hero {
     public int heroXP;
     public int heroHP;
     public int heroPosition;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Hero hero = (Hero) o;
-        return heroLevel == hero.heroLevel &&
-                heroXP == hero.heroXP &&
-                heroHP == hero.heroHP &&
-                heroPosition == hero.heroPosition;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(heroLevel, heroXP, heroHP, heroPosition);
-    }
+    public int DoTRounds;
+    public int DoTDmg;
+    public int maxLvlHp;
 
     public void setHeroHP(int heroHP) {
         this.heroHP = heroHP;
@@ -39,7 +23,9 @@ public abstract class Hero {
     public Hero(int heroPosition) {
         heroXP = 0;
         heroLevel = 0;
-        this.heroPosition = heroPosition;
+        heroPosition = heroPosition;
+        DoTRounds = 0;
+        DoTDmg = 0;
     }
 
     @Override
@@ -52,7 +38,9 @@ public abstract class Hero {
     }
 
     public abstract void accept(AbilityVisitor abilityVisitor);
+
     public abstract void attack(Hero heroPlayer);
+
     public void XPCalculator(Hero winner, Hero loser) {
         winner.heroXP += Math.max(0, 200 - (winner.heroLevel - loser.heroLevel) * 40);
     }
@@ -84,4 +72,34 @@ public abstract class Hero {
     protected abstract void powerUp();
 
     protected abstract void restoreHealth();
+
+    public void move(String direction) {
+        if(direction.equals("_")) {
+            return;
+        }
+        if(direction.equals("L")) {
+            heroPosition--;
+            return;
+        }
+        if(direction.equals("R")) {
+            heroPosition++;
+            return;
+        }
+        if(direction.equals("U")) {
+            heroPosition -= GameInput.getInstance().getUnit();
+            return;
+        }
+        if(direction.equals("D")) {
+            heroPosition += GameInput.getInstance().getUnit();
+            return;
+        }
+    }
+
+    public void overtimeDmg(int DoTRounds, int DoTDmg){
+        if (DoTRounds == 0) return;
+        this.heroHP -= DoTDmg;
+        DoTRounds--;
+    }
+
+    public abstract float landAmp();
 }

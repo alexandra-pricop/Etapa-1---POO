@@ -1,7 +1,9 @@
 package com.etapa1.heroes;
 
 import com.etapa1.common.Constants;
+import com.etapa1.main.GameInput;
 import com.etapa1.visitors.AbilityVisitor;
+import com.etapa1.visitors.BackStabVisitor;
 import com.etapa1.visitors.DeflectVisitor;
 import com.etapa1.visitors.DrainVisitor;
 
@@ -10,9 +12,12 @@ public class WizardHero extends Hero {
     public float drainDmg = 0.2f;
     public float deflectDmg = 0.35f;
     public int overtime = 0;
+    public int DoT = 0;
+
     public WizardHero(int heroPosition) {
         super(heroPosition);
         this.heroHP = Constants.W_HP;
+        this.maxLvlHp = heroHP;
         System.out.println("I'M A F***ING WIZARD");
     }
 
@@ -36,7 +41,16 @@ public class WizardHero extends Hero {
 
     @Override
     public void restoreHealth() {
-        this.heroHP = Constants.W_HP;
+        this.heroHP = maxLvlHp + 30;
+        maxLvlHp = heroHP;
+    }
+
+    @Override
+    public float landAmp() {
+        if(GameInput.getInstance().getGameMap().get(heroPosition).equals("D")) {
+            return Constants.W_AMP;
+        }
+        return Constants.BASE_AMP;
     }
 
     @Override
@@ -48,8 +62,9 @@ public class WizardHero extends Hero {
     public void attack(Hero heroPlayer) {
         AbilityVisitor deflectVisitor = new DeflectVisitor(this);
         AbilityVisitor drainVisitor = new DrainVisitor(this);
-        heroPlayer.accept(deflectVisitor);
+        //this.overtimeDmg(DoTRounds, DoTDmg);
         heroPlayer.accept(drainVisitor);
+        heroPlayer.accept(deflectVisitor);
         if(heroPlayer.heroHP <= 0) {
             this.XPCalculator(this, heroPlayer);
             heroPlayer.levelUp();

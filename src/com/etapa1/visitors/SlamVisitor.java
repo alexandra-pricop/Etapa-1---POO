@@ -15,12 +15,14 @@ public class SlamVisitor implements AbilityVisitor {
 
     @Override
     public void visit(KnightHero knightHero) {
-
+        int dmg = Math.round(hero.slamDmg * hero.landAmp() * 1.2f);
+        knightHero.heroHP -= dmg;
     }
 
     @Override
     public void visit(RogueHero rogueHero) {
-
+        int dmg = Math.round(hero.slamDmg * hero.landAmp() * 0.8f);
+        rogueHero.heroHP -= dmg;
     }
 
     @Override
@@ -30,6 +32,7 @@ public class SlamVisitor implements AbilityVisitor {
 
     @Override
     public void visit(PyromancerHero pyromancerHero) {
-
+        int dmg = Math.round(hero.slamDmg * hero.landAmp() * 0.9f);
+        pyromancerHero.heroHP -= dmg;
     }
 }
