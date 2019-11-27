@@ -32,8 +32,10 @@ public class PyromancerHero extends Hero {
 
     @Override
     protected void restoreHealth() {
-        this.heroHP = maxLvlHp + 50;
-        maxLvlHp = heroHP;
+        if (this.heroHP > 0) {
+            this.heroHP = maxLvlHp + this.heroLevel * 50;
+            maxLvlHp = heroHP;
+        }
     }
 
     @Override
@@ -64,10 +66,10 @@ public class PyromancerHero extends Hero {
 //        }
         heroPlayer.accept(fireBlastVisitor);
         heroPlayer.accept(igniteVisitor);
-        if(heroPlayer.heroHP <= 0) {
-            this.XPCalculator(this, heroPlayer);
-            this.levelUp();
-        }
+//        if(heroPlayer.heroHP <= 0) {
+//            this.XPCalculator(this, heroPlayer);
+//            this.levelUp();
+//        }
     }
 
     @Override

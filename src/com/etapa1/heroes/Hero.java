@@ -4,6 +4,7 @@ import com.etapa1.common.Constants;
 import com.etapa1.main.GameInput;
 import com.etapa1.visitors.AbilityVisitor;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public abstract class Hero {
@@ -15,6 +16,8 @@ public abstract class Hero {
     public int DoTRounds;
     public int DoTDmg;
     public int maxLvlHp;
+    public int stunRounds;
+    public ArrayList<String> heroMoves = new ArrayList<String>();
 
     public void setHeroHP(int heroHP) {
         this.heroHP = heroHP;
@@ -23,9 +26,10 @@ public abstract class Hero {
     public Hero(int heroPosition) {
         heroXP = 0;
         heroLevel = 0;
-        heroPosition = heroPosition;
+        this.heroPosition = heroPosition;
         DoTRounds = 0;
         DoTDmg = 0;
+        stunRounds = 0;
     }
 
     @Override
@@ -50,19 +54,19 @@ public abstract class Hero {
     public void levelUp() {
         boolean flag = false;
         if (this.heroXP >= Constants.LEVEL_1_MIN) {
-            this.heroLevel++;
+            this.heroLevel = 1;
             flag = true;
         }
         if (this.heroXP >= Constants.LEVEL_2_MIN) {
-            this.heroLevel++;
+            this.heroLevel = 2;
             flag = true;
         }
-        if (this.heroLevel >= Constants.LEVEL_3_MIN) {
-            this.heroLevel++;
+        if (this.heroXP >= Constants.LEVEL_3_MIN) {
+            this.heroLevel = 3;
             flag = true;
         }
-        if (this.heroLevel >= Constants.LEVEL_4_MIN) {
-            this.heroLevel++;
+        if (this.heroXP >= Constants.LEVEL_4_MIN) {
+            this.heroLevel = 4;
             flag = true;
         }
         if(flag) {
@@ -76,6 +80,10 @@ public abstract class Hero {
     protected abstract void restoreHealth();
 
     public void move(String direction) {
+        if (stunRounds > 0) {
+            stunRounds--;
+            return;
+        }
         if(direction.equals("_")) {
             return;
         }
@@ -100,7 +108,7 @@ public abstract class Hero {
     public void overtimeDmg(int DoTRounds, int DoTDmg){
         if (DoTRounds == 0) return;
         this.heroHP -= DoTDmg;
-        DoTRounds--;
+        this.DoTRounds--;
     }
 
     public abstract float landAmp();

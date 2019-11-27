@@ -43,10 +43,10 @@ public class KnightHero extends Hero {
         //this.overtimeDmg(DoTRounds, DoTDmg);
         heroPlayer.accept(executeVisitor);
         heroPlayer.accept(slamVisitor);
-        if(heroPlayer.heroHP <= 0) {
-            this.XPCalculator(this, heroPlayer);
-            this.levelUp();
-        }
+//        if(heroPlayer.heroHP <= 0) {
+//            this.XPCalculator(this, heroPlayer);
+//            this.levelUp();
+//        }
     }
 
     @Override
@@ -60,8 +60,10 @@ public class KnightHero extends Hero {
 
     @Override
     protected void restoreHealth() {
-        this.heroHP = maxLvlHp + 80;
-        maxLvlHp = heroHP;
+        if (this.heroHP > 0) {
+            this.heroHP = maxLvlHp + this.heroLevel * 80;
+            maxLvlHp = heroHP;
+        }
     }
 
     @Override

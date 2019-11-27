@@ -40,8 +40,10 @@ public class RogueHero extends Hero {
 
     @Override
     public void restoreHealth() {
-        this.heroHP = maxLvlHp + 40;
-        maxLvlHp = heroHP;
+        if (this.heroHP > 0) {
+            this.heroHP = maxLvlHp + this.heroLevel * 40;
+            maxLvlHp = heroHP;
+        }
     }
 
     public float landAmp() {
@@ -71,10 +73,10 @@ public class RogueHero extends Hero {
 //        }
         heroPlayer.accept(backStabVisitor);
         heroPlayer.accept(paralysisVisitor);
-        if(heroPlayer.heroHP <= 0) {
-            this.XPCalculator(this, heroPlayer);
-            this.levelUp();
-        }
+//        if(heroPlayer.heroHP <= 0) {
+//            this.XPCalculator(this, heroPlayer);
+//            this.levelUp();
+//        }
         this.criticalHits++;
     }
 

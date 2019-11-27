@@ -31,7 +31,7 @@ public class DeflectVisitor implements AbilityVisitor {
         int bDmg;
         if((rogueHero.criticalHits % 3 == 0 || rogueHero.criticalHits % 3 == 1)  && GameInput.getInstance().getGameMap().get(rogueHero.heroPosition).equals("W")) {
             bDmg = Math.round(rogueHero.backStabDmg * rogueHero.landAmp() * 1.5f);
-            System.out.println("critical");
+            //System.out.println("critical");
         }
         else {
             bDmg = Math.round(rogueHero.backStabDmg * rogueHero.landAmp());

@@ -42,8 +42,10 @@ public class WizardHero extends Hero {
 
     @Override
     public void restoreHealth() {
-        this.heroHP = maxLvlHp + 30;
-        maxLvlHp = heroHP;
+        if (this.heroHP > 0) {
+            this.heroHP = maxLvlHp + this.heroLevel * 30;
+            maxLvlHp = heroHP;
+        }
     }
 
     @Override
@@ -66,10 +68,10 @@ public class WizardHero extends Hero {
         //this.overtimeDmg(DoTRounds, DoTDmg);
         heroPlayer.accept(drainVisitor);
         heroPlayer.accept(deflectVisitor);
-        if(heroPlayer.heroHP <= 0) {
-            this.XPCalculator(this, heroPlayer);
-            heroPlayer.levelUp();
-        }
+//        if(heroPlayer.heroHP <= 0) {
+//            this.XPCalculator(this, heroPlayer);
+//            heroPlayer.levelUp();
+//        }
     }
 
     @Override
