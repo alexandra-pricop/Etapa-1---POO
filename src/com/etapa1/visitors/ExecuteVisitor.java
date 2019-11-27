@@ -35,7 +35,12 @@ public class ExecuteVisitor implements AbilityVisitor {
 
     @Override
     public void visit(WizardHero wizardHero) {
-
+        if(wizardHero.heroHP < hero.enemyXPLimit * wizardHero.maxLvlHp) {
+            wizardHero.heroHP = 0;
+            return;
+        }
+        int dmg = Math.round(hero.executeDmg * hero.landAmp() * 0.8f);
+        wizardHero.heroHP -= dmg;
     }
 
     @Override

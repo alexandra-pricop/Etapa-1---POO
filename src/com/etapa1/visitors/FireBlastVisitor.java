@@ -27,7 +27,8 @@ public class FireBlastVisitor implements AbilityVisitor {
 
     @Override
     public void visit(WizardHero wizardHero) {
-
+        int amp = Math.round(hero.fireBlastDmg * hero.landAmp());
+        wizardHero.heroHP -= Math.round(amp * 1.05f);
     }
 
     @Override

@@ -31,7 +31,10 @@ public class IgniteVisitor implements AbilityVisitor {
 
     @Override
     public void visit(WizardHero wizardHero) {
-
+        wizardHero.DoTRounds = 2;
+        wizardHero.DoTDmg = Math.round(hero.igniteDoT * hero.landAmp() * 1.05f);
+        int amp = Math.round(hero.igniteBaseDmg * hero.landAmp() * 1.05f);
+        wizardHero.heroHP -= amp;
     }
 
     @Override

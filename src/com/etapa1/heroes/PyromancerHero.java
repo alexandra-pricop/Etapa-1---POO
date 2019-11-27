@@ -16,17 +16,18 @@ public class PyromancerHero extends Hero {
         super(heroPosition);
         this.heroHP = Constants.P_HP;
         this.maxLvlHp = heroHP;
-        System.out.println("I'M A F***ING PYROMANCER");
+        //System.out.println("I'M A F***ING PYROMANCER");
     }
 
     @Override
     public String toString() {
-        return "PyromancerHero{" +
-                "heroLevel = " + heroLevel +
-                ", heroXP = " + heroXP +
-                ", heroHP = " + heroHP +
-                ", heroPosition = " + heroPosition +
-                '}' + "\n";
+        if(this.heroHP > 0) {
+            return "P " + heroLevel + " " + heroXP +
+                    " " + heroHP +
+                    " " + heroPosition / GameInput.getInstance().getUnit() +
+                    " " + heroPosition % GameInput.getInstance().getUnit();
+        }
+        return "P dead";
     }
 
     @Override

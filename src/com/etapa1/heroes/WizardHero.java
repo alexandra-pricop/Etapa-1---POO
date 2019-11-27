@@ -18,7 +18,7 @@ public class WizardHero extends Hero {
         super(heroPosition);
         this.heroHP = Constants.W_HP;
         this.maxLvlHp = heroHP;
-        System.out.println("I'M A F***ING WIZARD");
+        //System.out.println("I'M A F***ING WIZARD");
     }
 
     public float getDrainDmg() {
@@ -31,12 +31,13 @@ public class WizardHero extends Hero {
 
     @Override
     public String toString() {
-        return "WizardHero{" +
-                "heroLevel = " + heroLevel +
-                ", heroXP = " + heroXP +
-                ", heroHP = " + heroHP +
-                ", heroPosition = " + heroPosition +
-                '}' + "\n";
+        if(this.heroHP > 0) {
+            return "W " + heroLevel + " " + heroXP +
+                    " " + heroHP +
+                    " " + heroPosition / GameInput.getInstance().getUnit() +
+                    " " + heroPosition % GameInput.getInstance().getUnit();
+        }
+        return "W dead";
     }
 
     @Override

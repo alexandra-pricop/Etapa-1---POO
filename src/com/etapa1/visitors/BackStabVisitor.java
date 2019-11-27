@@ -23,7 +23,7 @@ public class BackStabVisitor implements AbilityVisitor {
         }
         int dmg = (int) Math.round(amp - 0.1f * amp);
         knightHero.heroHP -= dmg;
-        hero.criticalHits++;
+        //hero.criticalHits++;
     }
 
     @Override
@@ -34,14 +34,18 @@ public class BackStabVisitor implements AbilityVisitor {
         }
         int dmg = (int) Math.round(amp + 0.2f * amp);
         rogueHero.heroHP -= dmg;
-        hero.criticalHits++;
+        //hero.criticalHits++;
     }
 
     @Override
     public void visit(WizardHero wizardHero) {
         int amp = Math.round(hero.backStabDmg * hero.landAmp());
+        if (hero.criticalHits % 3 == 0 && GameInput.getInstance().getGameMap().get(hero.heroPosition).equals("W")){
+            amp = Math.round(amp * 1.5f);
+        }
         int dmg = (int) Math.round(amp + 0.25f * amp);
         wizardHero.heroHP -= dmg;
+        //hero.criticalHits++;
     }
 
     @Override
@@ -52,6 +56,6 @@ public class BackStabVisitor implements AbilityVisitor {
         }
         int dmg = (int) Math.round(amp + 0.25f * amp);
         pyromancerHero.heroHP -= dmg;
-        hero.criticalHits++;
+        //hero.criticalHits++;
     }
 }

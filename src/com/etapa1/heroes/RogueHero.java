@@ -24,17 +24,18 @@ public class RogueHero extends Hero {
         super(heroPosition);
         this.heroHP = Constants.R_HP;
         this.maxLvlHp = heroHP;
-        System.out.println("I'M A F***ING ROGUE");
+        //System.out.println("I'M A F***ING ROGUE");
     }
 
     @Override
     public String toString() {
-        return "RogueHero{" +
-                "heroLevel = " + heroLevel +
-                ", heroXP = " + heroXP +
-                ", heroHP = " + heroHP +
-                ", heroPosition = " + heroPosition +
-                '}' + "\n";
+        if(this.heroHP > 0) {
+            return "R " + heroLevel + " " + heroXP +
+                    " " + heroHP +
+                    " " + heroPosition / GameInput.getInstance().getUnit() +
+                    " " + heroPosition % GameInput.getInstance().getUnit();
+        }
+        return "R dead";
     }
 
     @Override
@@ -74,6 +75,7 @@ public class RogueHero extends Hero {
             this.XPCalculator(this, heroPlayer);
             this.levelUp();
         }
+        this.criticalHits++;
     }
 
     @Override

@@ -16,17 +16,18 @@ public class KnightHero extends Hero {
         super(heroPosition);
         this.heroHP = Constants.K_HP;
         this.maxLvlHp = heroHP;
-        System.out.println("I'M A F***ING KNIGHT");
+        //System.out.println("I'M A F***ING KNIGHT");
     }
 
     @Override
     public String toString() {
-        return "KnightHero{" +
-                "heroLevel = " + heroLevel +
-                ", heroXP = " + heroXP +
-                ", heroHP = " + heroHP +
-                ", heroPosition = " + heroPosition +
-                '}' + "\n";
+        if(this.heroHP > 0) {
+            return "K " + heroLevel + " " + heroXP +
+                    " " + heroHP +
+                    " " + heroPosition / GameInput.getInstance().getUnit() +
+                    " " + heroPosition % GameInput.getInstance().getUnit();
+        }
+        return "K dead";
     }
 
     @Override

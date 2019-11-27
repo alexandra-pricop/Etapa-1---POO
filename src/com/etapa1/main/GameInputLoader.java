@@ -2,6 +2,7 @@ package com.etapa1.main;
 
 import fileio.FileSystem;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,12 +11,14 @@ import java.util.List;
 import java.util.Map;
 
 public final class GameInputLoader {
-    private final String mInputPath;
-    private final String mOutputPath;
+//    private final String mInputPath;
+//    private final String mOutputPath;
+    private fileio.FileSystem fs = null;
 
-    GameInputLoader(final String inputPath, final String outputPath) {
-        mInputPath = inputPath;
-        mOutputPath = outputPath;
+    GameInputLoader(fileio.FileSystem fs) {
+//        mInputPath = inputPath;
+//        mOutputPath = outputPath;
+        this.fs = fs;
     }
 
     public void load() {
@@ -29,7 +32,7 @@ public final class GameInputLoader {
         int noRounds = 0;
 
         try {
-            FileSystem fs = new FileSystem(mInputPath, mOutputPath);
+            //FileSystem fs = new FileSystem(mInputPath, mOutputPath);
 
             noRows = fs.nextInt();
             noColumns = fs.nextInt();
@@ -60,7 +63,7 @@ public final class GameInputLoader {
                 }
             }
 
-            fs.close();
+//            fs.close();
 
         } catch (IOException e) {
             e.printStackTrace();

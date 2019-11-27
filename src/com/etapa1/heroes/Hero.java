@@ -30,11 +30,13 @@ public abstract class Hero {
 
     @Override
     public String toString() {
-        return "heroLevel=" + heroLevel +
-                ", heroXP=" + heroXP +
-                ", heroHP=" + heroHP +
-                ", heroPosition=" + heroPosition +
-                '}';
+        if(this.heroHP > 0) {
+            return "W " + heroLevel + " " + heroXP +
+                    " " + heroHP +
+                    " " + heroPosition / GameInput.getInstance().getUnit() +
+                    " " + heroPosition % GameInput.getInstance().getUnit();
+        }
+        return "W dead";
     }
 
     public abstract void accept(AbilityVisitor abilityVisitor);

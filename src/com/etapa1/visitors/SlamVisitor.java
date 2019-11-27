@@ -27,7 +27,8 @@ public class SlamVisitor implements AbilityVisitor {
 
     @Override
     public void visit(WizardHero wizardHero) {
-
+        int dmg = Math.round(hero.slamDmg * hero.landAmp() * 1.05f);
+        wizardHero.heroHP -= dmg;
     }
 
     @Override
