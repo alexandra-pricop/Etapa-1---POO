@@ -3,14 +3,14 @@ package com.etapa1.main;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class GameInput {
+public final class GameInput {
 
     private static GameInput instance = null;
 
-    private GameInput() {}
+    private GameInput() { }
 
     public static GameInput getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new GameInput();
         }
         return instance;
@@ -23,28 +23,28 @@ public class GameInput {
     private int mRounds;
     private int mUnit;
 
-    public void setGameMap(Map<Integer, String> mGameMap) {
-        this.mGameMap = mGameMap;
+    public void setGameMap(final Map<Integer, String> gameMap) {
+        this.mGameMap = gameMap;
     }
 
-    public void setPlayersType(LinkedList<String> mPlayersType) {
-        this.mPlayersType = mPlayersType;
+    public void setPlayersType(final LinkedList<String> playersType) {
+        this.mPlayersType = playersType;
     }
 
-    public void setPlayersPosition(LinkedList<Integer> mPlayersPosition) {
-        this.mPlayersPosition = mPlayersPosition;
+    public void setPlayersPosition(final LinkedList<Integer> playersPosition) {
+        this.mPlayersPosition = playersPosition;
     }
 
-    public void setPlayersMoves(LinkedList<String> mPlayersMoves) {
-        this.mPlayersMoves = mPlayersMoves;
+    public void setPlayersMoves(final LinkedList<String> playersMoves) {
+        this.mPlayersMoves = playersMoves;
     }
 
-    public void setRounds(int mRounds) {
-        this.mRounds = mRounds;
+    public void setRounds(final int rounds) {
+        this.mRounds = rounds;
     }
 
-    public void setUnit(int mUnit) {
-        this.mUnit = mUnit;
+    public void setUnit(final int unit) {
+        this.mUnit = unit;
     }
 
     public Map<Integer, String> getGameMap() {
@@ -67,6 +67,8 @@ public class GameInput {
         return mRounds;
     }
 
-    public int getUnit() { return mUnit; }
+    public int getUnit() {
+        return mUnit;
+    }
 
 }

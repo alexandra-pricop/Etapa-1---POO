@@ -1,29 +1,20 @@
 package com.etapa1.heroes;
 
-public class HeroFactory {
+public final class HeroFactory {
 
-//    private static HeroFactory instance = null;
-//
-//    public static HeroFactory getInstance() {
-//        if(instance == null) {
-//            instance = new HeroFactory();
-//        }
-//        return instance;
-//    }
-
-    private HeroFactory() {}
-
-    public static Hero createHero(HeroTypes heroType, int heroPosition) {
-
-        switch (heroType) {
+    private HeroFactory() { }
+    public static Hero createHero(final HeroTypes type, final int position) {
+        switch (type) {
             case K:
-                return new KnightHero(heroPosition);
+                return new KnightHero(position);
             case P:
-                return new PyromancerHero(heroPosition);
+                return new PyromancerHero(position);
             case W:
-                return new WizardHero(heroPosition);
+                return new WizardHero(position);
             case R:
-                return new RogueHero(heroPosition);
+                return new RogueHero(position);
+            default:
+                break;
         }
 
         return null;

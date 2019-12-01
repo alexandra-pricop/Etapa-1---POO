@@ -1,23 +1,14 @@
 package com.etapa1.main;
 
-import fileio.FileSystem;
-
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 public final class GameInputLoader {
-//    private final String mInputPath;
-//    private final String mOutputPath;
     private fileio.FileSystem fs = null;
 
-    GameInputLoader(fileio.FileSystem fs) {
-//        mInputPath = inputPath;
-//        mOutputPath = outputPath;
+    GameInputLoader(final fileio.FileSystem fs) {
         this.fs = fs;
     }
 
@@ -32,14 +23,12 @@ public final class GameInputLoader {
         int noRounds = 0;
 
         try {
-            //FileSystem fs = new FileSystem(mInputPath, mOutputPath);
-
             noRows = fs.nextInt();
             noColumns = fs.nextInt();
 
-            for(int i = 0; i < noRows; i++) {
+            for (int i = 0; i < noRows; i++) {
                 String line = fs.nextWord();
-                for(int j = 0; j < noColumns; j++) {
+                for (int j = 0; j < noColumns; j++) {
                     gameMap.put(i * noColumns + j, Character.toString(line.charAt(j)));
                 }
             }
@@ -56,14 +45,13 @@ public final class GameInputLoader {
 
             noRounds = fs.nextInt();
 
-            for(int i = 0; i < noRounds; i++) {
+            for (int i = 0; i < noRounds; i++) {
                 String line = fs.nextWord();
                 for (int j = 0; j < noPlayers; j++) {
                     playersMoves.add(Character.toString(line.charAt(j)));
                 }
             }
 
-//            fs.close();
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -7,9 +7,9 @@ import com.etapa1.heroes.WizardHero;
 
 public interface AbilityVisitor {
 
-    public void visit(KnightHero knightHero);
-    public void visit(RogueHero rogueHero);
-    public void visit(WizardHero wizardHero);
-    public void visit(PyromancerHero pyromancerHero);
+    void visit(KnightHero knightHero);
+    void visit(RogueHero rogueHero);
+    void visit(WizardHero wizardHero);
+    void visit(PyromancerHero pyromancerHero);
 
 }

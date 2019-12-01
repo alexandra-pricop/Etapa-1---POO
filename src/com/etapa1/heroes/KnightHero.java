@@ -8,67 +8,79 @@ import com.etapa1.visitors.SlamVisitor;
 
 public class KnightHero extends Hero {
 
-    public int executeDmg = 200;
-    public int slamDmg = 100;
-    public float enemyXPLimit = 0.2f;
+    public int executeDmg = Constants.BASE_EX;
+    public int slamDmg = Constants.BASE_SLAM;
+    public float enemyXPLimit = Constants.BASE_HP_LIM;
 
-    public KnightHero(int heroPosition) {
+    public KnightHero(final int heroPosition) {
         super(heroPosition);
         this.heroHP = Constants.K_HP;
         this.maxLvlHp = heroHP;
-        //System.out.println("I'M A F***ING KNIGHT");
     }
 
     @Override
+    /**
+     * @return
+     */
     public String toString() {
-        if(this.heroHP > 0) {
-            return "K " + heroLevel + " " + heroXP +
-                    " " + heroHP +
-                    " " + heroPosition / GameInput.getInstance().getUnit() +
-                    " " + heroPosition % GameInput.getInstance().getUnit();
+        if (this.heroHP > 0) {
+            return "K " + heroLevel + " " + heroXP
+                    + " " + heroHP
+                    + " " + heroPosition / GameInput.getInstance().getUnit()
+                    + " " + heroPosition % GameInput.getInstance().getUnit();
         }
         return "K dead";
     }
 
     @Override
-    public void accept(AbilityVisitor abilityVisitor) {
+    /**
+     * @return
+     */
+    public void accept(final AbilityVisitor abilityVisitor) {
         abilityVisitor.visit(this);
     }
 
 
     @Override
-    public void attack(Hero heroPlayer) {
+    /**
+     * @return
+     */
+    public void attack(final Hero heroPlayer) {
         AbilityVisitor executeVisitor = new ExecuteVisitor(this);
         AbilityVisitor slamVisitor = new SlamVisitor(this);
-        //this.overtimeDmg(DoTRounds, DoTDmg);
         heroPlayer.accept(executeVisitor);
         heroPlayer.accept(slamVisitor);
-//        if(heroPlayer.heroHP <= 0) {
-//            this.XPCalculator(this, heroPlayer);
-//            this.levelUp();
-//        }
     }
 
     @Override
+    /**
+     * @return
+     */
     protected void powerUp() {
-        executeDmg += 30;
-        slamDmg += 40;
-        if(enemyXPLimit + 0.01f <=  0.4f) {
-            enemyXPLimit += 0.01f;
+        executeDmg += Constants.EX_PU;
+        slamDmg += Constants.SLAM_PU;
+        if (enemyXPLimit + Constants.HP_LIM_PU <=  Constants.HP_LIM) {
+            enemyXPLimit += Constants.HP_LIM_PU;
         }
     }
 
     @Override
+    /**
+     * @return
+     */
     protected void restoreHealth() {
         if (this.heroHP > 0) {
-            this.heroHP = maxLvlHp + this.heroLevel * 80;
+            this.heroHP = maxLvlHp + this.heroLevel * Constants.K_HP_MUL;
             maxLvlHp = heroHP;
         }
     }
 
     @Override
+    /**
+     * @return
+     */
     public float landAmp() {
-        if(GameInput.getInstance().getGameMap().get(heroPosition).equals("L")) {
+        if (GameInput.getInstance().getGameMap().get(heroPosition).equals("L")) {
             return Constants.K_AMP;
         }
         return Constants.BASE_AMP;

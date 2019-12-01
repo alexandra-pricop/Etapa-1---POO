@@ -8,75 +8,79 @@ import com.etapa1.visitors.IgniteVisitor;
 
 public class PyromancerHero extends Hero {
 
-    public int fireBlastDmg = 350;
-    public int igniteBaseDmg = 150;
-    public int igniteDoT = 50;
+    public int fireBlastDmg = Constants.BASE_FB;
+    public int igniteBaseDmg = Constants.BASE_IGN;
+    public int igniteDoT = Constants.BASE_IGN_DOT;
 
-    public PyromancerHero(int heroPosition) {
+    public PyromancerHero(final int heroPosition) {
         super(heroPosition);
         this.heroHP = Constants.P_HP;
         this.maxLvlHp = heroHP;
-        //System.out.println("I'M A F***ING PYROMANCER");
     }
 
     @Override
+    /**
+     * @return
+     */
     public String toString() {
-        if(this.heroHP > 0) {
-            return "P " + heroLevel + " " + heroXP +
-                    " " + heroHP +
-                    " " + heroPosition / GameInput.getInstance().getUnit() +
-                    " " + heroPosition % GameInput.getInstance().getUnit();
+        if (this.heroHP > 0) {
+            return "P " + heroLevel + " " + heroXP
+                    + " " + heroHP
+                    + " " + heroPosition / GameInput.getInstance().getUnit()
+                    + " " + heroPosition % GameInput.getInstance().getUnit();
         }
         return "P dead";
     }
 
     @Override
+    /**
+     * @return
+     */
     protected void restoreHealth() {
         if (this.heroHP > 0) {
-            this.heroHP = maxLvlHp + this.heroLevel * 50;
+            this.heroHP = maxLvlHp + this.heroLevel * Constants.P_HP_MUL;
             maxLvlHp = heroHP;
         }
     }
 
     @Override
+    /**
+     * @return
+     */
     public float landAmp() {
-        if(GameInput.getInstance().getGameMap().get(heroPosition).equals("V")) {
+        if (GameInput.getInstance().getGameMap().get(heroPosition).equals("V")) {
             return Constants.P_AMP;
         }
         return Constants.BASE_AMP;
     }
 
     @Override
-    public void accept(AbilityVisitor abilityVisitor) {
+    /**
+     * @return
+     */
+    public void accept(final AbilityVisitor abilityVisitor) {
         abilityVisitor.visit(this);
     }
 
     @Override
-    public void attack(Hero heroPlayer) {
-//        if (this.heroHP <= 0) {
-//            System.out.println("pyro mort in cada");
-//            return;
-//        }
+    /**
+     * @return
+     */
+    public void attack(final Hero heroPlayer) {
         AbilityVisitor fireBlastVisitor = new FireBlastVisitor(this);
         AbilityVisitor igniteVisitor = new IgniteVisitor(this);
-//        this.overtimeDmg(DoTRounds, DoTDmg);
-//        if (this.heroHP <= 0) {
-//            System.out.println("pyro mort in cada");
-//            return;
-//        }
         heroPlayer.accept(fireBlastVisitor);
         heroPlayer.accept(igniteVisitor);
-//        if(heroPlayer.heroHP <= 0) {
-//            this.XPCalculator(this, heroPlayer);
-//            this.levelUp();
-//        }
     }
 
     @Override
+    /**
+     * @return
+     */
     protected void powerUp() {
-        fireBlastDmg += 50;
-        igniteBaseDmg += 20;
-        igniteDoT += 30;
+        fireBlastDmg += Constants.FB_PU;
+        igniteBaseDmg += Constants.IGN_PU;
+        igniteDoT += Constants.IGN_DOT_PU;
     }
 
 }
